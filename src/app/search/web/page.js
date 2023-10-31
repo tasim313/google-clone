@@ -1,3 +1,4 @@
+import WebSearchResults from "@/components/WebSearchResults";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +9,8 @@ const CONTEXT_KEY = "269ff30ac5eed49c3"
 async function WebSearchPage ({ searchParams }){
 
     const startIndex = searchParams.start || "1";
-
+    
+    await new Promise((resolve) => setTimeout(resolve, 10000))
     const response = await fetch(
         `https://www.googleapis.com/customsearch/v1?key=${process.env.SEARCH_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}}&start=${startIndex}`
     );
@@ -34,7 +36,7 @@ async function WebSearchPage ({ searchParams }){
     return(
         <>
         <div>
-            {results && results.map(result =><h1>{result.title}</h1>)}
+            {results && <WebSearchResults results={data}/>}
         </div>
         </>
     )
